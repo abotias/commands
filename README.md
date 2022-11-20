@@ -9,10 +9,17 @@ for i in $(ls /home);do echo "export HISTTIMEFORMAT=»%d/%m/%y %T "' >> /home/$i
 ```
 
 ### Generate certificates
+CSR:
 ```sh
 openssl genrsa -out abotias.key 4096 
 openssl req -out abotias.csr -key  abotias.key -new -sha256
 ```
+Selfsigned:
+```sh
+sudo openssl req -x509 -nodes -days 1000 -newkey rsa:2048 -keyout /etc/ssl/private/selfsigned.key -out /etc/ssl/certs/selfsigned.crt
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+```
+
 
 ### IPTABLES
 
