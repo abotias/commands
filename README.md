@@ -7,6 +7,11 @@ List of useful commands I've needed at a time.
 ```sh
 for i in $(ls /home);do echo "export HISTTIMEFORMAT=»%d/%m/%y %T "' >> /home/$i/.bash_profile ;done && echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bash_profile
 ```
+### Show services actives
+```sh
+systemctl list-units --type=service --status=active
+```
+
 
 ### Generate certificates
 CSR:
@@ -46,6 +51,16 @@ iptables -A OUTPUT -d X.X.X.X/32 -j DROP
 ```sh
 scp -rv $virtual_machine root@10.10.10.5:/vmfs/volumes/4a4b4e49-1b8fad213-0000-000000000000
 ```
+
+### ovftool
+- Extract VM
+~~~
+.\ovftool.exe -ds=<datastore> vi://root@<ip>/<virtual_machine> C:\Users\<user>\<folder>\
+~~~
+- Deploy VM
+~~~
+C:\Program Files\VMware\VMware OVF Tool\ovftool.exe' --name="$name" -dm=thin --datastore="<datastore>" C:\Users\<user>\Desktop\$template\$template.ovf vi://@<ip>/
+~~~
 
 ### Disable raw disk scanning at ESXi boot
 ```sh
