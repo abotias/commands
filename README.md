@@ -5,7 +5,7 @@ List of useful commands I've needed at a time.
 ## BASH
 ### Add time to history
 ```sh
-for i in $(ls /home);do echo "export HISTTIMEFORMAT=»%d/%m/%y %T "' >> /home/$i/.bash_profile ;done && echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bash_profile
+for i in $(ls /home);do echo '"export HISTTIMEFORMAT=%d/%m/%y %T "' >> /home/$i/.bash_profile ;done && echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bash_profile
 ```
 ### Show services actives
 ```sh
