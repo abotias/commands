@@ -12,6 +12,11 @@ for i in $(ls /home);do echo "export HISTTIMEFORMAT=»%d/%m/%y %T "' >> /home/$i
 systemctl list-units --type=service --status=active
 ```
 
+### Get all software and version installed
+Debian/Ubuntu:
+```sh
+apt-mark showmanual|while read a;do dpkg -l $a|tail -n1|awk '{print $2";"$3}';done
+```
 
 ### Generate certificates
 CSR:
@@ -66,6 +71,21 @@ C:\Program Files\VMware\VMware OVF Tool\ovftool.exe' --name="$name" -dm=thin --d
 ```sh
 esxcli storage core device setconfig -d naa.1010101010101010100000000000000e --perennially-reserved=true
 ```
+## Python
+### Share folder with http server
+```sh
+python3 -m http.server 8001
+```
+
+## TEMP
+```sh
+netstat -tuplan|awk 'NR>2'|grep -v ESTABLISHED|grep -v "127.0.0.53"|sed 's/0.0.0.0://g'|sed 's/LISTEN//g'|awk '{print $1";"$4";"$6$7}'
+ps aux|grep "$(netstat -tuplan|awk 'NR>2'|grep -v ESTABLISHED|grep -v "127.0.0.53"|sed 's/0.0.0.0://g'|sed 's/LISTEN//g'|awk '{print $6}'|cut -d"/" -f1)"|grep -v grep
+apt-mark showmanual|while read a;do dpkg -l $a|tail -n1|awk '{print $2";"$3}';done
+cat /etc/passwd|grep -v "nologin"|grep -v "false"|grep -v "sync"
+for i in $(systemctl list-units --type=service --state=active --no-pager|grep -v "systemd-fsck"|grep -v "systemd-"|awk 'NR>1'|head -n -5|awk '{print $1}');do for j in $(systemctl status $i --no-pager|grep "Loaded"|cut -d"(" -f2|cut -d";" -f1);do cat $j| if grep -q "ExecStart";then cat $j|grep "ExecStart"|sed 's/ExecStart=//g'|awk -v h=$i '{print h";"$1}';else echo "===========================================================$i";fi;done;done
+```
+
 
 ## Raspberry Pi
 ### Get power supply status
